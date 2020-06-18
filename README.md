@@ -1,11 +1,11 @@
-# ZeoGAN
+# Zeolite GAN
 
-Tensorflow(1.x) implementations of ZeoGAN. \
-(tested in tensorflow-gpu 1.12.0) \
+`Tensorflow 1.x` implementation of [ZeoGAN](http://advances.sciencemag.org/lookup/doi/10.1126/sciadv.aax9324).
+> tested on `tensorflow-gpu==1.12.0`
 
-Generate energy/material shapes (3-d voxels)
+Generate energy/material shapes (in voxel format).
 
-## Setup input arguments (input_non_user_desired.in)
+## Input Arguments
 ```
 --dataset_path /path/to/input_shapes              
 --device       1                     # gpu device number
@@ -42,31 +42,42 @@ Generate energy/material shapes (3-d voxels)
 ```
 
 
-## Train model
+## Training of Model
 ```bash
 $ python main.py @input_example.in
 ```
 
+In `input_example.in`,
+```
+--dataset_path /path/to/input_shapes              
+--device       1                     # gpu device number
+--logdir       /path/to/logdir       # path for log, checkpoint
 
-## Generate 3d shapes
+...
+
+--user_range 18 22
+#--restore_ckpt /path/to/checkpoint  # if use pre-trained checkpoints
+```
+
+## Generation of Material Shapes from Trained Model
 
 ```bash
 $ python gen.py --checkpoint {} --n_samples {} --savedir={} --device {} --batch_size {} --type normal
 ```
 
-**checkpoint :** checkpoint path in log_dir \
-(e.g) ./test_log/save-2020-06-17T13:52:51.090310-100000
+**checkpoint**: checkpoint path in log_dir
+> E.g. `./test_log/save-2020-06-17T13:52:51.090310-100000`
 
-**n_samples:** number of generated shapes \
-(e.g) 100000
+**n_samples**: number of generated shapes
+> E.g. `100000`
 
-**savedir:** directory for generated shapes \
-(e.g) ./test_generation
+**savedir**: directory for generated shapes 
+> E.g. `./test_generation`
 
-**device:** GPU device number
+**device**: `GPU device index`
 
 **batch_size:** batch size for generation \
-(Requirement) < 1/100 of n_samples
+> (Requirement) < 1/100 of n_samples
 
 ```bash
 $ python gen.py --checkpoint ./test_log/save-2020-06-17T13:52:51.090310-100000 --n_samples 10000 --savedir=./test_generation --device 0 --batch_size 100 --type normal
