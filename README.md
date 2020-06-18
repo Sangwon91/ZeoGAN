@@ -1,9 +1,10 @@
 # Zeolite GAN
 
-`Tensorflow 1.x` implementation of [ZeoGAN](http://advances.sciencemag.org/lookup/doi/10.1126/sciadv.aax9324).
-> tested on `tensorflow-gpu==1.12.0`
+`Tensorflow 1.12.0` implementation of [ZeoGAN](http://advances.sciencemag.org/lookup/doi/10.1126/sciadv.aax9324).
 
-Generate energy/material shapes (in voxel format).
+<img src="fig1.png" width=500>
+
+Generates energy and material shapes (in voxel format).
 
 ## Input Arguments
 ```
@@ -66,18 +67,18 @@ $ python gen.py --checkpoint {} --n_samples {} --savedir={} --device {} --batch_
 ```
 
 **checkpoint**: checkpoint path in log_dir
-> E.g. `./test_log/save-2020-06-17T13:52:51.090310-100000`
+> e.g. `./test_log/save-2020-06-17T13:52:51.090310-100000`
 
 **n_samples**: number of generated shapes
-> E.g. `100000`
+> e.g. `100000`
 
 **savedir**: directory for generated shapes 
-> E.g. `./test_generation`
+> e.g. `./test_generation`
 
 **device**: `GPU device index`
 
-**batch_size:** batch size for generation \
-> (Requirement) < 1/100 of n_samples
+**batch_size:** batch size for generation
+> `batch_size < of n_samples / 100`
 
 ```bash
 $ python gen.py --checkpoint ./test_log/save-2020-06-17T13:52:51.090310-100000 --n_samples 10000 --savedir=./test_generation --device 0 --batch_size 100 --type normal
